@@ -1,0 +1,344 @@
+{
+	"info": {
+		"_postman_id": "a6066f7a-7aab-46f2-ae84-5f1ce4d91e67",
+		"name": "Geetting Started",
+		"description": "In this tutorial, we covered basic API documentation with postman.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "First request",
+			"_postman_id": "b4e601ee-ea43-40b9-a3e5-66ce9d08d8f4",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://simple-books-api.glitch.me",
+				"description": "**get** is one of the **http-request-method**. We can use it for obtain data from server.\n\nFirst step of request-response connection with simple book api"
+			},
+			"response": []
+		},
+		{
+			"name": "set base url (add variable)",
+			"_postman_id": "49563649-49a5-40f8-8971-867ecbef6bfe",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{BaseUrl}}/status",
+				"description": "Add **baseUrl** to the variables for reuse root-url.\n\n﻿Note that, there are 3 option when we set variable.\n\n﻿1 :VARIABLE : name of variable.\n\n﻿2 : INITIAL VAL : Value of variable. Which will be shared with others\n\n﻿3 : CURRENT VAL : Value of variable. Which will not be shared with others."
+			},
+			"response": []
+		},
+		{
+			"name": "Request for book list",
+			"_postman_id": "623adf2d-baa8-4f89-9875-0037eea34aa6",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{BaseUrl}}/books",
+				"description": "Get list of books from \\`books\\` path"
+			},
+			"response": []
+		},
+		{
+			"name": "request with parameters(query strings)",
+			"_postman_id": "56ff5660-b470-41fb-ae3f-50c074ce0cfd",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/books?limit=3&type=non-fiction",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "3"
+						},
+						{
+							"key": "type",
+							"value": "non-fiction"
+						}
+					]
+				},
+				"description": "After listing **books**, we can add **query strings** for filtering respond data rely on the api feature. Which can allow just **type** and **limit** options.\n\n﻿If we send redundant query strings. Some api ignore and some api respond with error. This one ignoring."
+			},
+			"response": []
+		},
+		{
+			"name": "Get single book(path)",
+			"_postman_id": "250eea52-bc17-4442-b39c-4572060a6428",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/books/:bookId",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"books",
+						":bookId"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "3",
+							"disabled": true
+						},
+						{
+							"key": "type",
+							"value": "non-fiction",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "bookId",
+							"value": "1",
+							"type": "string"
+						}
+					]
+				},
+				"description": "Show single book with more details.\n\n﻿ Note that, the **:bookId** is placeholder key for its value. So this means that the url is not the \\[{{baseUrl}}`/:bookId]`, it is \\[{{baseUrl}}/`1].`"
+			},
+			"response": []
+		},
+		{
+			"name": "AUTHENTICATION(get acces-token)",
+			"_postman_id": "114b233a-9021-4dba-8b0a-42c5d78badf3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"clientName\": \"halilibrahimAvşar\",\r\n   \"clientEmail\": \"halirlnj@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/api-clients/",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api-clients",
+						""
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "3",
+							"disabled": true
+						},
+						{
+							"key": "type",
+							"value": "non-fiction",
+							"disabled": true
+						}
+					]
+				},
+				"description": "`post` is one of **http-request-method.** We can use it for creating data on the server. And in this tutorial, we will submit book order.\n\nIn this section, we try to get acces-token. Which is generating key for us from our name and email in the server. So actually we just send our name-email to get the acces-token. Then we can use the acces-token to order book in server.\n\nSo basically there are several steps:\n\n1; Send requirements(which is name-email as json) in body or head(depend on api)\n\n2; If requirements eligible. Server will generate the acces-token for us and sending with response\n\n3; After all, we can use acces-token for access the private side of api(which is creating book in server).\n\nWe can use the acces-token in 7-days(api says that clearly)"
+			},
+			"response": []
+		},
+		{
+			"name": "SUBMIT ORDER (auth keep explained)",
+			"_postman_id": "f0f8f21f-1d71-4d53-9f05-58aadb96beaf",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{accesToken}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"bookId\": 1,\r\n  \"customerName\": \"halil\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/orders",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"orders"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "3",
+							"disabled": true
+						},
+						{
+							"key": "type",
+							"value": "non-fiction",
+							"disabled": true
+						}
+					]
+				},
+				"description": "And we did it. Submit an order.\n\nThe /orders is the private field of server, so this means, api require authorization when we want to submit an order. And we authorized in previous section. Now we can order books with sending json data in body as mentioned in api documentation. But as this section require authentication, we should send our acces-token inside of header(some other APIs accept in body. But most of them is accept in head as well as this one)"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all submited orders",
+			"_postman_id": "93c68358-1b85-4ff7-83ed-a7f3fa28c853",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "5242989e4699ff341c3e2de834092c4a83b4945b44763c12bc09f142119500e5"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/orders/",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"orders",
+						""
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "3",
+							"disabled": true
+						},
+						{
+							"key": "type",
+							"value": "non-fiction",
+							"disabled": true
+						}
+					]
+				},
+				"description": "We can access our orders by sending an get request with **/orders** endpoint."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete submited order",
+			"_postman_id": "f6484882-93c3-4e28-870c-5d23f0f01bb1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "5242989e4699ff341c3e2de834092c4a83b4945b44763c12bc09f142119500e5"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/orders/:orderid",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"orders",
+						":orderid"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "3",
+							"disabled": true
+						},
+						{
+							"key": "type",
+							"value": "non-fiction",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "orderid",
+							"value": "GEtZRCXM9dZyl1itJGHXE",
+							"type": "string"
+						}
+					]
+				},
+				"description": "**delete** one of the http request method, we can use it for delete some data in server.\n\nWe use **delete** http method for remove some order from server"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "d1819be1-628f-41d5-b1a4-ecf7ef2d450c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b6f7a49e-5484-4910-849e-a10c0b46e016",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "273eb90c-aa4e-4705-9c96-84c80582003a",
+			"key": "BaseUrl",
+			"value": "https://simple-books-api.glitch.me",
+			"type": "string"
+		},
+		{
+			"id": "9c1ba385-ea41-4403-ab21-237f7b946864",
+			"key": "accesToken",
+			"value": "-----",
+			"type": "string"
+		}
+	]
+}
